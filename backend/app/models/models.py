@@ -9,6 +9,8 @@ class Location(Base):
     code: Mapped[str] = mapped_column(String(32), unique=True)
     name: Mapped[str] = mapped_column(String(128))
     address: Mapped[str] = mapped_column(String(256), default="")
+    # 整机一次补货允许的最大总件数；0 = 不限制（按缺口满补）
+    max_fill_total: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
 
 class Lane(Base):
     __tablename__ = "lanes"

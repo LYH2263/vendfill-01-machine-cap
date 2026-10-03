@@ -29,7 +29,7 @@ onMounted(async () => {
     <aside class="vf-receipt" v-if="refill">
       <h2>*** 补货建议单 ***</h2>
       <div class="vf-receipt-line" v-for="l in refill.lines" :key="l.lane_id">
-        <span>{{ l.slot_no }} {{ l.sku_name }}</span>
+        <span>{{ l.slot_no }} {{ l.sku_name }}<small v-if="l.reason">（{{ l.reason }}）</small></span>
         <span>x{{ l.fill_qty }}</span>
       </div>
       <p class="muted" style="margin:0.75rem 0 0;font-size:0.72rem;color:#6a5e48;text-align:center">

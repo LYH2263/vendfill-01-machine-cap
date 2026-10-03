@@ -12,12 +12,15 @@ onMounted(run)
   <div style="margin-top:1rem" v-if="data">
     <div class="vf-receipt">
       <h2>*** VendFill 补货单 ***</h2>
+      <p style="text-align:center;margin:0 0 0.5rem;font-size:0.72rem;color:#6a5e48">
+        整机上限：{{ data.max_fill_total > 0 ? data.max_fill_total + ' 件' : '不限' }} · 合计 {{ data.total_fill }} 件
+      </p>
       <div class="vf-receipt-line" style="font-weight:700;border-bottom:2px dashed #8a7e64">
         <span>货道 / 商品</span><span>补量</span>
       </div>
       <div class="vf-receipt-line" v-for="l in data.lines" :key="l.lane_id">
         <span>{{ l.slot_no }} {{ l.sku_name }}
-          <small>({{ l.status === 'need_fill' ? '待补' : l.status === 'full' ? '满仓' : '超占' }})</small>
+          <small>({{ l.reason || (l.status === 'need_fill' ? '待补' : l.status === 'full' ? '满仓' : l.status === 'capped' ? '整机件数已满' : '超占') }})</small>
         </span>
         <span>{{ l.fill_qty }} / 缺{{ l.gap }}</span>
       </div>
